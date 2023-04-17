@@ -1,0 +1,16 @@
+extends layout
+block content
+    h1 #{title}: #{genre.name}
+    if genre_books.length
+        p.text-danger #[strong Can't delete, there are books associated with this genre]
+        div(style='margin-top: 32px; margin-left: 32px')
+            h4 Books
+            each book in genre_books
+                a(href=book.url) #[strong #{book.title}]
+                p=book.summary
+    else
+        p Are you sure you want to delete the genre #{genre.name}?
+        form(action='' method='POST')
+            div.form-group
+                input#genreid.form-control(type='hidden',name='genreid',value=genre._id,required='true')
+            button.btn.btn-primary(type='submit') Delete it!!
